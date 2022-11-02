@@ -10,6 +10,8 @@ A demonstration of using login.gov as an Identity Verification provider.
 6) Update LOGINDOTGOV related parameters in gslauth/settings.py according to the sandbox app created in step 5.
 7) Search for occurances of 'holub'.  These paths must be changed per your environment.
 
+See the images in the screenshot folder to aid with LOGINDOTGOV settings.  Also, a final user attributes screen can be seen.
+
 Files in etc/nginx and etc/systemd/system demonstrate a full webserver with backend a WSGI using gunicorn and unix sockets.
     Once configured, be sure to issue this command after changing any code:
       sudo systemctl daemon-reload   # ALWAYS after editing a file in etc/systemd/system
