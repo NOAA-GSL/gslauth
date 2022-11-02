@@ -7,14 +7,16 @@ A demonstration of using login.gov as an Identity Verification provider.
 4) Upgrade pip to latest and then pip install -r requirements.txt
 
 5) Use https://developers.login.gov to establish a sandbox environment, create a team (yourself and collaborators if desired), then create and app.
-6) Update LOGINDOTGOV related parameters in gslauth/settings.py  https://developers.login.gov/oidc
+6) Update LOGINDOTGOV related parameters in gslauth/settings.py according to the sandbox app created in step 5.
+7) Search for occurances of 'holub'.  These paths must be changed per your environment.
 
 Files in etc/nginx and etc/systemd/system demonstrate a full webserver with backend a WSGI using gunicorn and unix sockets.
     Once configured, be sure to issue this command after changing any code:  sudo systemctl restart gslauth_gunicorn.service
 
 SELinux commands useful during debugging:
 
-   sudo view /var/log/audit/audid.log   (or just sudo tail -f -- with clear screens between gunicorn restarts)
+   # Deal with SELinux complaints
+   sudo view /var/log/audit/audit.log   (or just sudo tail -f /var/log/audit/audit.log -- with a clear screen between gunicorn restarts)
       - look for 'denied' or 'failures'
       - write result to testN.txt where N = 1, 2, ...
 
@@ -23,11 +25,39 @@ SELinux commands useful during debugging:
       cat testN.te to see what SELinux flagged 
 
    Apply the file:
-   sudo semodule -i testN.pp
+      sudo semodule -i testN.pp
 
-   Loop on to top of SELinux commands.... :-)
+   Loop to top of the SELinux audit.log capture .... :-)
+
+   # Other useful tails
+   sudo tail -v /var/log/nginx/access.log
+   sudo tail -v /var/log/nginx/error.log
+   sudo tail -v /var/log/gunicorn/access.log
+   sudo tail -v /var/log/gunixorn/error.log
+   tail -v /var/log/messages
+
+SELINUX content types and user types:
+   # For the venv
+   sudo chcon -R -t httpd_sys_content_t venv/
+   sudo chcon -t httpd_sys_script_exec_t venv/bin/gunicorn
+
+   # For the entire site:
+   sudo chcon -R -u system_u gsl_auth
+   sudo chcon -R -t httpd_sys_content_t gsl_auth
+   sudo chcon -R -u system_u /var/log/gunicorn/
+
+   # While in in venv/lib/python3.8/site-packages:
+   sudo chcon -t httpd_sys_script_exec_t _openssl.abi3.so _rust.abi3.so 
+   sudo chcon -t httpd_sys_script_exec_t _cffi_backend.cpython-38-x86_64-linux-gnu.so 
+
+   # Logging
+   sudo chcon -t httpd_log_t /home/holub/logs/gslauth/django_*
+
 
 ----------------------------------------------
 
 2 Nov 2022:
 GSL is currently working to establish a Partner relationship so that apps could be moved into 'production'.
+
+Kirk Holub
+kirk.l.holub@noaa.gov
