@@ -1,0 +1,13 @@
+A demonstration of using login.gov is an Identity Verification provider.
+
+
+1) Clone gslauth repo
+2) Change directory gslauth
+3) Create a virtual environment named venv:  python3.8 -m venv venv 
+   Python 3.6 not being supported WRT crypto -- hence 3.8 choice
+4) Use https://developers.login.gov to establish a sandbox environment, create a team (yourself and collaborators if desired), then create and app.
+5) Update LOGINDOTGOV related parameters in gslauth/settings.py  https://developers.login.gov/oidc
+
+
+2 Nov 2022:
+GSL is currently working to establish a Partner relationship so that apps could be moved into 'production'.
