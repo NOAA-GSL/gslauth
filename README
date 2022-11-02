@@ -1,5 +1,4 @@
-A demonstration of using login.gov is an Identity Verification provider.
-
+A demonstration of using login.gov as an Identity Verification provider.
 
 1) Clone gslauth repo
 2) Change directory gslauth
@@ -8,6 +7,25 @@ A demonstration of using login.gov is an Identity Verification provider.
 4) Use https://developers.login.gov to establish a sandbox environment, create a team (yourself and collaborators if desired), then create and app.
 5) Update LOGINDOTGOV related parameters in gslauth/settings.py  https://developers.login.gov/oidc
 
+Files in etc/nginx and etc/systemd/system demonstrate a full webserver with backend a WSGI using gunicorn and unix sockets.
+    Once configured, be sure to issue this command after changing any code:  sudo systemctl restart gslauth_gunicorn.service
+
+SELinux commands useful during debugging:
+
+   sudo view /var/log/audit/audid.log   (or just sudo tail -f -- with clear screens between gunicorn restarts)
+      - look for 'denied' or 'failures'
+      - write result to testN.txt where N = 1, 2, ...
+
+   Create test.te and test.pp files for the Nth case:
+      cat testN.txt | audit2all -a -M testN
+      cat testN.te to see what SELinux flagged 
+
+   Apply the file:
+   sudo semodule -i testN.pp
+
+   Loop on to top of SELinux commands.... :-)
+
+----------------------------------------------
 
 2 Nov 2022:
 GSL is currently working to establish a Partner relationship so that apps could be moved into 'production'.
