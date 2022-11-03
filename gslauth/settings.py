@@ -211,17 +211,17 @@ if GSLAUTH_DEPLOY_ENV == "Development":
 elif GSLAUTH_DEPLOY_ENV == "Integration":
     DEPLOY_ENV_COLOR = '#99ff99'  # light green
     DEPLOY_ENV_TEXT_COLOR = 'black'
-    SERVER_FQDN = '?.gsd.esrl.noaa.gov'
-    SERVER_IP = '137.75.164.y'
+    SERVER_FQDN = 'inthostname.dn.tld'
+    SERVER_IP = 'a.b.c.y'
 
 elif GSLAUTH_DEPLOY_ENV == "Production":
     DEPLOY_ENV_COLOR = "#3399ff"  # blue
     DEPLOY_ENV_TEXT_COLOR = 'gold'
-    SERVER_FQDN = '?.gsd.esrl.noaa.gov'
-    SERVER_IP = '137.75.164.x'
+    SERVER_FQDN = 'prodhostname.dn.tld'
+    SERVER_IP = 'a.b.c.z'
 
 else:
-    msg = "environment variable QRBA3_DEPLOY_ENVIRONMENT not set.  " \
+    msg = "environment variable GSLAUTH_DEPLOY_ENVIRONMENT not set.  " \
           "Supported values: Development, Integration, Production"
     print(msg)
     sys.exit(-1)
@@ -290,10 +290,10 @@ LOGINDOTGOV_CLIENT_ID = 'urn:gov:gsa:openidconnect.profiles:sp:sso:noaa_oar:gsla
 LOGINDOTGOV_ACR = 'http://idmanagement.gov/ns/assurance/ial/2'
 LOGINDOTGOV_CLIENT_ASSERTION_TYPE = 'urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer'
 LOGINDOTGOV_SCOPE = 'openid+email+profile+first_name+last_name'
-LOGINDOTGOV_RETURN_TO = 'https://qrba-dev.gsd.esrl.noaa.gov/gslauth/logindotgov_authenticated'
-LOGINDOTGOV_AUTHENTICATED_REDIRECT = 'https://qrba-dev.gsd.esrl.noaa.gov/static/test.html'
-LOGINDOTGOV_ERROR_REDIRECT = 'https://qrba-dev.gsd.esrl.noaa.gov/static/oops.html'
-LOGINDOTGOV_LOGOUT_URI = 'https://qrba-dev.gsd.esrl.noaa.gov/static/test.html'
+LOGINDOTGOV_RETURN_TO = SERVER_FQDN + '/gslauth/logindotgov_authenticated'
+LOGINDOTGOV_AUTHENTICATED_REDIRECT = SERVER_FQDN + '/static/test.html'
+LOGINDOTGOV_ERROR_REDIRECT = SERVER_FQDN + '/static/oops.html'
+LOGINDOTGOV_LOGOUT_URI = SERVER_FQDN + '/static/test.html'
 
 # A known parameter return on auth sucess .... can be whatever we want as long as its > 22 chars
 LOGINDOTGOV_LOGIN_STATE = '2.7182818284590452353602874'
