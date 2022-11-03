@@ -33,6 +33,7 @@ DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # https://stackoverflow.com/questions/42077532/django-security-and-settings
+# see demo_secrets.json 
 with open(os.path.join(BASE_DIR, 'secrets.json')) as secrets_file:
     jsonsecrets = json.load(secrets_file)
 
