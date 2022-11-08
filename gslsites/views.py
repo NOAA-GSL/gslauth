@@ -110,7 +110,11 @@ def logindotgov_authenticated(request):
         attstr = userattributes.text
         msg = "   attstr: " + attstr
         logger.info(msg)
-    
+   
+        # The returned attributes string is UGLY -- it looks like a {}, but it is not a valid string which can be easily be manipulated using ast.
+        # It requires all of the str manipulation below to return a list tuples with clean values
+        # attstr: {"sub":"cb081269-23a7-47ad-b6c2-9f0b79a33dc2","iss":"https://idp.int.identitysandbox.gov/","email":"kirk.l.holub@noaa.gov","email_verified":true,"given_name":"FAKEY","family_name":"MCFAKERSON","birthdate":"1938-10-06","verified_at":1667325527} 
+        # I suspect the issue is a lack of double quotes surrounding the "verified_at" integer value.  Regardless, str manipulation is required.
         for attr in attstr.split(','):
             attr = attr.replace('{', '')
             attr = attr.replace('}', '')
