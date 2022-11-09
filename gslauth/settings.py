@@ -290,10 +290,10 @@ LOGINDOTGOV_CLIENT_ID = 'urn:gov:gsa:openidconnect.profiles:sp:sso:noaa_oar:gsla
 LOGINDOTGOV_ACR = 'http://idmanagement.gov/ns/assurance/ial/2'
 LOGINDOTGOV_CLIENT_ASSERTION_TYPE = 'urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer'
 LOGINDOTGOV_SCOPE = 'openid+email+profile+first_name+last_name'
-LOGINDOTGOV_RETURN_TO = SERVER_FQDN + '/gslauth/logindotgov_authenticated'
-LOGINDOTGOV_AUTHENTICATED_REDIRECT = SERVER_FQDN + '/static/test.html'
-LOGINDOTGOV_ERROR_REDIRECT = SERVER_FQDN + '/static/oops.html'
-LOGINDOTGOV_LOGOUT_URI = SERVER_FQDN + '/static/test.html'
+LOGINDOTGOV_RETURN_TO = 'https://' + SERVER_FQDN + '/gslauth/logindotgov_authenticated'
+LOGINDOTGOV_AUTHENTICATED_REDIRECT = 'https://' + SERVER_FQDN + '/static/test.html'
+LOGINDOTGOV_ERROR_REDIRECT = 'https://' + SERVER_FQDN + '/static/oops.html'
+LOGINDOTGOV_LOGOUT_URI = 'https://' + SERVER_FQDN + '/static/test.html'
 
 # A known parameter return on auth sucess .... can be whatever we want as long as its > 22 chars
 LOGINDOTGOV_LOGIN_STATE = '2.7182818284590452353602874'
